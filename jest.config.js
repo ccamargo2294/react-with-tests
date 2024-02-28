@@ -1,7 +1,5 @@
-module.exports = {
-    coverageThreshold: {
-        global: {
-            lines: 80,
-        },
+export const coverageThreshold = {
+    global: {
+        lines: 80,
     },
 };
