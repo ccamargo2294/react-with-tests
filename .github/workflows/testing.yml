@@ -5,8 +5,22 @@ on:
       - master
       - main
 jobs:
-  coverage:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ArtiomTr/jest-coverage-report-action@v2
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14" # Or your specific Node.js version
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests and collect coverage
+        run: npm test -- --coverage
+
+      # Additional step to comment coverage report on PR
+      - name: Comment PR with coverage report
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./coverage/lcov.info
