@@ -5,6 +5,15 @@ on:
       - master
       - main
 jobs:
+  code-quality:
+    name: eslint runner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm install eslint eslint-plugin-jest eslint-plugin-react
+      - name: Run ESLint on modified code
+        run: npx eslint ./
   test:
     permissions:
       pull-requests: write
